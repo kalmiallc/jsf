@@ -1,0 +1,47 @@
+/**
+ * Align material icons inline with text.
+ */
+.mat-icon {
+  vertical-align: bottom;
+
+  // Adjust icon size to match current font size.
+  font-size: 1em; // Propagate font-size from parent.
+  width: 1em;
+  height: 1em;
+}
+
+
+/**
+ * Modifier classes.
+ */
+.mat-icon-spin-cw {
+  animation-name:            material-spin-cw;
+  animation-duration:        1500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.mat-icon-spin-ccw {
+  animation-name:            material-spin-ccw;
+  animation-duration:        1500ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes material-spin-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes material-spin-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}

@@ -1,0 +1,83 @@
+@mixin box-shadow($color, $dx, $dy, $blur, $spread) {
+  box-shadow: $dx $dy $blur $spread $color;
+}
+
+@mixin box-shadow-important($color, $dx, $dy, $blur, $spread) {
+  box-shadow: $dx $dy $blur $spread $color !important;
+}
+
+@mixin box-shadow-preset-shadow($color) {
+  box-shadow: 0 1px 3px 0 set-opacity($color, 0.1), 0 1px 2px 0 set-opacity($color, 0.06) !important
+}
+
+@mixin box-shadow-preset-shadow-sm($color) {
+  box-shadow: 0 4px 6px -1px set-opacity($color, 0.1), 0 2px 4px -1px set-opacity($color, 0.06) !important;
+}
+
+@mixin box-shadow-preset-shadow-md($color) {
+  box-shadow: 0 10px 15px -3px set-opacity($color, 0.1), 0 4px 6px -2px set-opacity($color, 0.05) !important;
+}
+
+@mixin box-shadow-preset-shadow-lg($color) {
+  box-shadow: 0 20px 25px -5px set-opacity($color, 0.1), 0 10px 10px -5px set-opacity($color, 0.04) !important;
+}
+
+@mixin box-shadow-preset-shadow-xl($color) {
+  box-shadow: 0 25px 50px -12px set-opacity($color, 0.25) !important;
+}
+
+@mixin box-shadow-preset-shadow-inner($color) {
+  box-shadow: inset 0 2px 4px 0 set-opacity($color, 0.06) !important;
+}
+
+@mixin box-shadow-preset-shadow-outline($color) {
+  box-shadow: 0 0 0 3px set-opacity($color, 0.5) !important;
+}
+
+@mixin box-shadow-preset-shadow-raised($color) {
+  box-shadow: 0 10px 6px -6px set-opacity($color, 0.25) !important;
+}
+
+@mixin box-shadow-preset-shadow-menu($color) {
+  box-shadow: 0 2px 12px -4px set-opacity($color, $opacity-low) !important;
+}
+
+@mixin box-shadow-preset-shadow-card($color) {
+  box-shadow: 0 1px 3px set-opacity($color, 0.12), 0 1px 2px set-opacity($color, 0.24) !important;
+}
+
+@mixin box-shadow-preset-shadow-card-sm($color) {
+  box-shadow: 0 3px 6px set-opacity($color, 0.16), 0 3px 6px set-opacity($color, 0.23) !important;
+}
+
+@mixin box-shadow-preset-shadow-card-md($color) {
+  box-shadow: 0 10px 20px set-opacity($color, 0.19), 0 6px 6px set-opacity($color, 0.23) !important;
+}
+
+@mixin box-shadow-preset-shadow-card-lg($color) {
+  box-shadow: 0 14px 28px set-opacity($color, 0.25), 0 10px 10px set-opacity($color, 0.22) !important;
+}
+
+@mixin box-shadow-preset-shadow-card-xl($color) {
+  box-shadow: 0 19px 38px set-opacity($color, 0.30), 0 15px 12px set-opacity($color, 0.22) !important;
+}
+
+@mixin box-shadow-preset-shadow-float($color) {
+  box-shadow: 0 0 10px set-opacity($color, 0.052) !important;
+}
+
+@mixin box-shadow-preset-shadow-float-sm($color) {
+  box-shadow: 0 0 16px set-opacity($color, 0.056) !important;
+}
+
+@mixin box-shadow-preset-shadow-float-md($color) {
+  box-shadow: 0 0 22px set-opacity($color, 0.056) !important;
+}
+
+@mixin box-shadow-preset-shadow-float-lg($color) {
+  box-shadow: 0 0 26px set-opacity($color, 0.06) !important;
+}
+
+@mixin box-shadow-preset-shadow-float-xl($color) {
+  box-shadow: 0 0 30px set-opacity($color, 0.06) !important;
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@kalmia/jsf-themes",
+  "version": "1.0.0",
+  "author": "Kalmia LTD",
+  "license": "GPL-3.0-only",
+  "scripts": {
+    "generate:theme": "plop theme",
+    "stylelint": "stylelint \"themes/**/*.scss\" --syntax scss",
+    "patch-angular": "ts-node --project scripts/tsconfig.json scripts/patch-angular.ts"
+  },
+  "dependencies": {},
+  "publishConfig": {
+    "registry": "https://npm.kalmia.si"
+  },
+  "devDependencies": {
+    "@types/find-up": "^2.1.1",
+    "@types/node": "^10.12.1",
+    "chalk": "^2.4.1",
+    "find": "^0.2.9",
+    "find-up": "^3.0.0",
+    "plop": "^2.1.0",
+    "shelljs": "^0.8.2",
+    "stylelint": "^9.10.1",
+    "stylelint-config-recommended-scss": "^3.2.0",
+    "stylelint-scss": "^3.5.1",
+    "ts-node": "^7.0.1"
+  }
+}

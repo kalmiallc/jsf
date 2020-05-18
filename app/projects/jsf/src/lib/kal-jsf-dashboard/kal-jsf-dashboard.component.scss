@@ -1,0 +1,47 @@
+:host /deep/ {
+  gridster {
+    background: transparent;
+
+    gridster-item {
+      // Reset z-index
+      z-index: initial;
+
+      // Clear background color
+      background-color: transparent;
+
+      // Scroll content
+      .os-widget {
+        height: 100%;
+
+        // Fix size of document to 100% width and height.
+        .kal-jsf {
+          width: 100%;
+          height: 100%;
+          position: relative;
+
+          & > .theme-container {
+            // We have to set this to initial to allow the content inside to use absolute positioning based on our dashboard cell size
+            position: initial;
+          }
+        }
+
+      }
+
+      // Widget toolbar
+      .mat-toolbar {
+        .widget-icon {
+          padding: 0 14px;
+          cursor: pointer;
+        }
+
+        .widget-toolbar-spacer {
+          flex: 1 1 auto;
+        }
+      }
+    }
+
+    .gridster-column, .gridster-row {
+      border-color: #00000080 !important;
+    }
+  }
+}

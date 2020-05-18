@@ -1,0 +1,71 @@
+<div class="builder-wrapper">
+
+  <!-- Main actions (auto-refresh, etc..) -->
+  <div class="builder-main-actions-container">
+    <mat-checkbox (change)=changeAutoReload($event) [checked]=isCheckedAutoReload()>
+      Auto reload
+    </mat-checkbox>
+    <button *ngIf="showReloadButton()" mat-button (click)=reload()>
+      Reload
+    </button>
+  </div>
+
+  <!-- View actions (responsive controls, mobile view, ...) -->
+  <div class="builder-view-actions-container">
+    <button mat-icon-button
+            color="primary"
+            matTooltip="Desktop">
+      <mat-icon>desktop_mac</mat-icon>
+    </button>
+    <button mat-icon-button
+            color="primary"
+            matTooltip="Mobile">
+      <mat-icon>stay_primary_portrait</mat-icon>
+    </button>
+  </div>
+
+  <div class="builder-components-container">
+    <as-split direction="vertical" [gutterSize]="11">
+      <!-- Document preview -->
+      <as-split-area size="65">
+        <jsf-kal-jsf-doc
+          [onFormBuilderCreated]="onFormBuilderCreated"
+          [onCustomEvent]="onCustomEvent"
+          [onVirtualEvent]="onVirtualEvent"
+          [onNotification]="onNotification"
+          [onFormEvent]="onFormEvent"
+          [innerScroll]="false"
+          [enableThemeRender]="true"
+          [developerTools]="developerTools"
+          [doc]="doc"
+          *ngIf="doc">
+        </jsf-kal-jsf-doc>
+      </as-split-area>
+
+
+      <!-- Navigator & inspector -->
+      <as-split-area size="35">
+        <as-split direction="horizontal" [gutterSize]="11">
+          <!-- Navigator -->
+          <as-split-area size="50">
+            <jsf-builder-navigator
+              *ngIf="!!formBuilder"
+              [builder]="formBuilder"
+              [doc]="doc"
+              [eventBusService]="eventBusService">
+            </jsf-builder-navigator>
+          </as-split-area>
+
+          <!-- Inspector -->
+          <as-split-area size="50">
+            <jsf-builder-inspector
+              [doc]="doc">
+            </jsf-builder-inspector>
+          </as-split-area>
+        </as-split>
+      </as-split-area>
+
+    </as-split>
+  </div>
+
+</div>

@@ -1,0 +1,11 @@
+<jsf-kal-jsf-doc *ngIf="doc"
+                 [doc]="doc"
+                 [showValidationErrors]="showValidation.state"
+                 [onFormBuilderCreated]="onFormBuilderCreatedHandler"
+                 [onSubmit]="noopHandler"
+                 [onNotification]="noopHandler"
+                 [onFormEvent]="noopHandler"
+                 [onCustomEvent]="noopHandler"
+                 [onVirtualEvent]="noopHandler"
+                 [onError]="onErrorHandler">
+</jsf-kal-jsf-doc>

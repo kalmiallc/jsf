@@ -1,0 +1,17 @@
+<div class="basic-container" (contextmenu)="onContextMenuOpen($event)">
+  a
+  <span *ngFor="let item of navItems">
+    <span *ngIf="item.children && item.children.length > 0">
+      <div style="visibility: hidden; position: fixed" [matMenuTriggerFor]="menu.childMenu"
+      [style.left]="contextMenuPosition.x" [style.top]="contextMenuPosition.y" #contextMenuTrigger="matMenuTrigger">
+      </div>
+      <jsf-dynamic-context-menu-item #menu [items]="item.children"></jsf-dynamic-context-menu-item>
+    </span>
+    <span *ngIf="!item.children || item.children.length === 0">
+      <button mat-button color="primary">
+        {{item.displayName}}
+      </button>
+    </span>
+  </span>  
+
+</div>

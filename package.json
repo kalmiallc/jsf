@@ -1,0 +1,9 @@
+{
+  "name": "@kalmia/jsf",
+  "version": "2.8.0",
+  "author": "Kalmia LTD",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "pre-push": "^0.1.1"
+  }
+}

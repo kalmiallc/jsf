@@ -1,0 +1,39 @@
+.wrapper {
+  height: 100%;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-right: 0;
+  margin-left: 0;
+
+  .title {
+    float: left;
+  }
+  
+  .error {
+    color: red;
+  }
+
+  .buttons {
+    width: 100%;
+    text-align: right;
+    float: left;
+    padding-right: 0;
+    margin-right: 0;
+  }
+
+  .monaco-wrapper {
+    width: 90%;
+
+    ngx-monaco-editor {
+      height: 100% !important;
+    }
+  }
+}
+
+.no-value {
+  text-align: center;
+
+  p {
+    color: #d9d9d9
+  }
+}

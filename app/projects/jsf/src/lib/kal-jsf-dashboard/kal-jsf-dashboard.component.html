@@ -1,0 +1,71 @@
+<div class="jsf-dashboard" style="height: 100%;">
+  <gridster [options]="gridOptions">
+    <gridster-item [item]="item" *ngFor="let item of gridDashboard">
+      <overlay-scrollbars class="os-widget" [options]="widgetInstances[item.items[0].key].scrollOptions">
+        <div *ngIf="!getWidget(item.items[0].key); else hasWidget">
+          Widget {{ item.items[0].key }} not found.
+        </div>
+
+        <ng-template #hasWidget>
+          <mat-toolbar *ngIf="edit" color="primary">
+            <mat-toolbar-row>
+              <span>Widget {{ item.items[0].key }}</span>
+              <span class="widget-toolbar-spacer"></span>
+              <mat-icon (click)="toggleWidgetSettings($event, item)"
+                        class="widget-icon" aria-hidden="false" aria-label="Settings">settings
+              </mat-icon>
+              <mat-icon (click)="removeWidgetClick($event, item)"
+                        class="widget-icon" aria-hidden="false" aria-label="Remove">delete
+              </mat-icon>
+            </mat-toolbar-row>
+          </mat-toolbar>
+
+          <div *ngIf="openWidgetSettings[item.items[0].key]">
+            <h4>Filter</h4>
+            <ng-container *ngIf="hasWidgetFilterSupport(item.items[0].key); else noFilterSupport">
+              <mat-form-field>
+                <mat-label>Source</mat-label>
+                <mat-select>
+                  <mat-option value="Default DFF">
+                    Default DFF
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+            <ng-template #noFilterSupport>
+              <p>This widget has no filter support.</p>
+            </ng-template>
+
+            <h4>Data source</h4>
+            <mat-form-field>
+              <mat-label>Source</mat-label>
+              <mat-select>
+                <mat-option value="Default DFF">
+                  Default DFF
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <jsf-kal-jsf-doc
+            [ngClass]="getWidget(item.items[0].key).htmlClass"
+            [onError]="onWidgetJsfErrorCallback(item.items[0].key)"
+            [onFormBuilderCreated]="onWidgetJsfBuilderCreateCallback(item.items[0].key)"
+            [innerScroll]="false"
+            [doc]="getWidget(item.items[0].key).definition"
+            [enableThemeRender]="enableThemeRender"
+            [builderOptions]="builderOptions"
+            [modes]="modes"
+            [disableWrapperStyles]="disableWrapperStyles"
+            [showLoadingIndicator]="showLoadingIndicator"
+            [developerTools]="developerTools"
+            [onFormEvent]="onFormEvent"
+            [onCustomEvent]="onCustomEvent"
+            [onVirtualEvent]="onVirtualEvent"
+            [onNotification]="onNotification">
+          </jsf-kal-jsf-doc>
+        </ng-template>
+      </overlay-scrollbars>
+    </gridster-item>
+  </gridster>
+</div>

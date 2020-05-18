@@ -1,0 +1,129 @@
+<div class="kal-jsf-filter">
+  <div class="filter-content">
+    <div class="row align-items-center">
+      <div class="col">
+        <ng-content></ng-content>
+      </div>
+      <div class="col-auto">
+        <!-- Filter menu -->
+        <mat-menu #jsfFilterMenu="matMenu">
+          <button *ngFor="let item of availableFilters; let i = index" (click)="selectFilter(item)"
+            mat-menu-item>{{ i18n(item.title) }}</button>
+        </mat-menu>
+        <button mat-icon-button [color]="selectedFilters && selectedFilters.length && 'primary'"
+          [matMenuTriggerFor]="jsfFilterMenu" [disabled]="!availableFilters.length">
+          <mat-icon [matTooltip]="i18n(messages.filter)">filter_list</mat-icon>
+        </button>
+
+        <!-- Sort menu -->
+        <mat-menu #jsfSortMenu="matMenu">
+          <button mat-menu-item (click)="removeSort(); $event.stopPropagation()">
+            <mat-icon color="primary" *ngIf="!selectedSort">
+              check
+            </mat-icon>
+            <span>{{ i18n(messages.defaultSortOrder) }}</span>
+          </button>
+
+          <ng-container *ngFor="let item of allFilters; let i = index">
+            <button mat-menu-item (click)="selectSort(item); $event.stopPropagation()">
+              <mat-icon color="primary"
+                *ngIf="(selectedSort && selectedSort.path === item.path && selectedSort.direction === 1)">
+                arrow_upward
+              </mat-icon>
+              <mat-icon color="primary"
+                *ngIf="(selectedSort && selectedSort.path === item.path && selectedSort.direction === -1)">
+                arrow_downward
+              </mat-icon>
+              <span>{{ i18n(item.title) }}</span>
+            </button>
+
+            <!--
+            <mat-menu #jsfSortDirectionMenu="matMenu">
+              <button mat-menu-item
+                      (click)="selectSort(item, 1)">
+                <mat-icon [color]="(selectedSort && selectedSort.path === item.path && selectedSort.direction === 1) && 'primary'">
+                  vertical_align_top
+                </mat-icon>
+                <span>{{ item.title }}</span>
+                <span class="text-muted">&nbsp;(Ascending)</span>
+              </button>
+              <button mat-menu-item
+                (click)="selectSort(item, -1)">
+                <mat-icon [color]="(selectedSort && selectedSort.path === item.path && selectedSort.direction === -1) && 'primary'">
+                  vertical_align_bottom
+                </mat-icon>
+                <span>{{ item.title }}</span>
+                <span class="text-muted">&nbsp;(Descending)</span>
+              </button>
+            </mat-menu>
+            -->
+          </ng-container>
+        </mat-menu>
+
+        <button mat-icon-button [color]="selectedSort && 'primary'" [matMenuTriggerFor]="jsfSortMenu"
+          [disabled]="!availableFilters.length">
+          <mat-icon [matTooltip]="i18n(messages.sort)">sort_by_alpha</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="filter-items">
+    <div class="filter-item" *ngFor="let item of selectedFilters; let i = index">
+
+      <div class="filter-item-wrapper">
+
+        <!-- USE PROP FILTER HANDLER -->
+        <ng-container *ngIf="item.jsfProp.prop.handler; else defaultProp" [ngSwitch]="item.jsfProp.prop.handler.type">
+          <jsf-filter-handler-common-dropdown *ngSwitchCase="'common/dropdown'"
+            (queryChange)="onFilterItemQueryChange(item, $event)" [filterItem]="item" [jsfBuilder]="jsfBuilder">
+          </jsf-filter-handler-common-dropdown>
+
+          <jsf-filter-handler-common-button-toggle *ngSwitchCase="'common/button-toggle'"
+            (queryChange)="onFilterItemQueryChange(item, $event)" [filterItem]="item" [jsfBuilder]="jsfBuilder">
+          </jsf-filter-handler-common-button-toggle>
+
+          <jsf-filter-handler-common-radio *ngSwitchCase="'common/radio'"
+            (queryChange)="onFilterItemQueryChange(item, $event)" [filterItem]="item" [jsfBuilder]="jsfBuilder">
+          </jsf-filter-handler-common-radio>
+
+          <ng-container *ngSwitchDefault>
+            <pre>No filter found for handler: {{ item.jsfProp.prop.handler.type }}</pre>
+          </ng-container>
+        </ng-container>
+
+        <!-- USE DEFAULT PROP FILTER COMPONENT -->
+        <ng-template #defaultProp>
+          <ng-container [ngSwitch]="item.jsfProp.prop.type">
+            <jsf-filter-prop-string *ngSwitchCase="'string'" (queryChange)="onFilterItemQueryChange(item, $event)"
+              [filterItem]="item" [jsfBuilder]="jsfBuilder"></jsf-filter-prop-string>
+            <jsf-filter-prop-number *ngSwitchCase="'number'" (queryChange)="onFilterItemQueryChange(item, $event)"
+              [filterItem]="item" [jsfBuilder]="jsfBuilder"></jsf-filter-prop-number>
+            <jsf-filter-prop-binary *ngSwitchCase="'binary'" (queryChange)="onFilterItemQueryChange(item, $event)"
+              [filterItem]="item" [jsfBuilder]="jsfBuilder"></jsf-filter-prop-binary>
+            <jsf-filter-prop-boolean *ngSwitchCase="'boolean'" (queryChange)="onFilterItemQueryChange(item, $event)"
+              [filterItem]="item" [jsfBuilder]="jsfBuilder"></jsf-filter-prop-boolean>
+            <jsf-filter-prop-date *ngSwitchCase="'date'" (queryChange)="onFilterItemQueryChange(item, $event)"
+              [filterItem]="item" [jsfBuilder]="jsfBuilder"></jsf-filter-prop-date>
+            <jsf-filter-prop-integer *ngSwitchCase="'integer'" (queryChange)="onFilterItemQueryChange(item, $event)"
+              [filterItem]="item" [jsfBuilder]="jsfBuilder"></jsf-filter-prop-integer>
+            <jsf-filter-prop-object *ngSwitchCase="'object'" (queryChange)="onFilterItemQueryChange(item, $event)"
+              [filterItem]="item" [jsfBuilder]="jsfBuilder"></jsf-filter-prop-object>
+            <jsf-filter-prop-ref *ngSwitchCase="'ref'" (queryChange)="onFilterItemQueryChange(item, $event)"
+              [filterItem]="item" [jsfBuilder]="jsfBuilder"></jsf-filter-prop-ref>
+            <jsf-filter-prop-id *ngSwitchCase="'id'" (queryChange)="onFilterItemQueryChange(item, $event)"
+              [filterItem]="item" [jsfBuilder]="jsfBuilder"></jsf-filter-prop-id>
+            <ng-container *ngSwitchCase="'null'"></ng-container>
+
+            <pre *ngSwitchDefault>No filter found for type: {{ item.jsfProp.prop.type }}</pre>
+          </ng-container>
+        </ng-template>
+      </div>
+      <div class="filter-item-actions">
+        <button mat-icon-button color="primary" (click)="removeFilter(item)" [matTooltip]="i18n(messages.removeFilter)">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

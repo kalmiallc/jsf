@@ -1,0 +1,21 @@
+.mat-checkbox {
+
+  &.mat-primary:not(.mat-checkbox-disabled) {
+    .mat-checkbox-checkmark, .mat-checkbox-checkmark-path {
+      stroke: mat-color($theme-palette-primary, default-contrast) !important;
+    }
+  }
+
+  &.mat-accent:not(.mat-checkbox-disabled) {
+    .mat-checkbox-checkmark, .mat-checkbox-checkmark-path {
+      stroke: mat-color($theme-palette-accent, default-contrast) !important;
+    }
+  }
+
+  &.mat-warn:not(.mat-checkbox-disabled) {
+    .mat-checkbox-checkmark, .mat-checkbox-checkmark-path {
+      stroke: mat-color($theme-palette-warn, default-contrast) !important;
+    }
+  }
+
+}

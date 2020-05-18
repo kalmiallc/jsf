@@ -1,0 +1,24 @@
+<div class="kal-jsf">
+  <div class="theme-container">
+
+    <!--
+    <div *ngIf="internalErrorMessage">
+      <p class="text-danger">Something went wrong.<br>Error message: {{ internalErrorMessage }}</p>
+    </div>
+    -->
+
+    <!-- Theme loading indicator -->
+    <jsf-loading-indicator *ngIf="!themeLoaded"></jsf-loading-indicator>
+
+    <!-- Overlay loading indicator -->
+    <jsf-overlay *ngIf="loadingIndicatorVisible">
+      <jsf-loading-indicator></jsf-loading-indicator>
+    </jsf-overlay>
+
+    <!-- Injection placeholder -->
+    <div class="jsf-container"
+         [jsfShowValidationMessages]="showAllValidationErrors">
+      <ng-container #themeContainer></ng-container>
+    </div>
+  </div>
+</div>

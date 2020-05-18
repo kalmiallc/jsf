@@ -1,0 +1,45 @@
+<div class="row wrapper has-value" *ngIf="selectedPropLayout !== null">
+  <div class="col-6 title">
+    <h2>Currently editing: {{ selectedProp?.type }} </h2>
+  </div>
+  <!-- <div class="col-4">
+    <div>
+      <div *ngIf="selectedPropLayout && selectedPropLayout.error && view=='UI' ">
+        <pre>{{ selectedPropLayout?.error }}</pre>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="col-6 buttons">      
+
+    <!-- select UI || JSON -->
+    <button mat-icon-button (click)="viewChange('JSON')"><mat-icon>code</mat-icon></button>
+    <button mat-icon-button (click)="viewChange('UI')"><mat-icon>dashboard</mat-icon></button>
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+
+  </div>
+
+  <div class="col-12" *ngIf="view=='JSON' && selectedPropLayout !== null">
+    <!-- select Dark || Light -->
+    <button mat-icon-button (click)="toggleDarkMode()"><mat-icon>brightness_medium</mat-icon></button>
+    <!-- Show items array -->
+    <mat-checkbox [(ngModel)]="showItems">Show items[]</mat-checkbox>
+  </div>
+  <!-- User Interface view -->
+  <div class="col-12" *ngIf="view=='UI' && selectedPropLayout !== null">
+    <jsf-kal-jsf-doc [doc]="selectedPropLayout?.jsfDoc" [enableThemeRender]="true"
+      [onError]="jsfError(selectedPropLayout)" [onFormBuilderCreated]="jsfBuilder(selectedPropLayout)">
+    </jsf-kal-jsf-doc>
+  </div>
+  <!-- JSON Viewer -->
+  <div class="col-12 monaco-wrapper" *ngIf="view=='JSON' && selectedPropLayout !== null">
+    <ngx-monaco-editor [(options)]="editorOptions" [(ngModel)]="editorContent"></ngx-monaco-editor>
+  </div>
+</div>
+<!-- No selected item to show -->
+<div class="row">
+  <div class=" col-12 no-value" *ngIf="selectedPropLayout === null">
+    <h1>No item selected</h1>
+    <p>You can select an item to edit directly in form or you can use schema or layout navigator</p>
+  </div>
+</div>

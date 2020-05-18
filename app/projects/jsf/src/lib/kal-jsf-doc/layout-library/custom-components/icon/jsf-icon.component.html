@@ -1,0 +1,18 @@
+<ng-container [ngSwitch]="iconProvider">
+  <!-- Material -->
+  <ng-container *ngSwitchCase="'material'">
+    <mat-icon class="jsf-icon"
+              [class.mat-icon-spin-cw]="hasModifier('spin-cw')"
+              [class.mat-icon-spin-ccw]="hasModifier('spin-ccw')"
+              [style.width]="iconSize"
+              [style.height]="iconSize"
+              [style.font-size]="iconSize">
+      {{ iconName }}
+    </mat-icon>
+  </ng-container>
+
+  <!-- Fontawesome -->
+  <ng-container *ngSwitchCase="'fontawesome'">
+    <span>Not implemented</span>
+  </ng-container>
+</ng-container>

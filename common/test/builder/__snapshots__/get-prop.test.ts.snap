@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get prop should disable controls 1`] = `
+Object {
+  "arrayProp": Array [
+    Object {
+      "arrayPropString": "A",
+      "nestedArray": Array [
+        Object {
+          "nestedArrayLinked": 11,
+          "nestedArrayNumber": 1,
+          "nestedArrayString": "TESTVALUE",
+        },
+      ],
+    },
+    Object {
+      "arrayPropString": "B",
+      "nestedArray": Array [
+        Object {
+          "nestedArrayLinked": 22,
+        },
+      ],
+    },
+    Object {
+      "arrayPropString": "C",
+      "nestedArray": Array [
+        Object {
+          "nestedArrayNumber": 3,
+          "nestedArrayString": "TESTVALUE3",
+        },
+      ],
+    },
+  ],
+}
+`;

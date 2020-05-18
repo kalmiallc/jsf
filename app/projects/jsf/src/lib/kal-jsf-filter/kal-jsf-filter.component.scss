@@ -1,0 +1,20 @@
+.filter-items {
+  display: flex;
+
+  .filter-item {
+    display: inline-block;
+    margin-right: 10px;
+
+    .filter-item-wrapper {
+      display: inline-block;
+    }
+
+    .filter-item-actions {
+      display: inline-block;
+
+      .mat-icon-button {
+        margin-left: 3px;
+      }
+    }
+  }
+}

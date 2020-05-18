@@ -1,0 +1,33 @@
+.mat-select {
+  font-family: $font-family-sans-serif;
+
+  .mat-select-panel {
+    // Adjust min and max width
+    min-width: 220px;
+    max-width: 405px;
+
+    // Adjust border radius
+    border-radius: $border-radius-sm;
+
+  }
+
+}
+
+.mat-select-panel {
+
+  .mat-option {
+
+    // Match search box to the rest of the styles
+    .mat-select-search-inside-mat-option {
+      .mat-select-search-input {
+        font-family: $font-family-sans-serif;
+      }
+
+      .mat-select-search-inner {
+        border-top-left-radius: $border-radius-sm;
+        border-top-right-radius: $border-radius-sm;
+      }
+    }
+
+  }
+}

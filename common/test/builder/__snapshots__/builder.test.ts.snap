@@ -1,0 +1,259 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JsfBuilder Basic JsfBuilder functionality 1`] = `
+Object {
+  "arrayDemo": Object {
+    "fixedArray": Array [
+      "SI",
+      12345,
+    ],
+    "nestedArray": Array [
+      Array [
+        1,
+        2,
+        3,
+      ],
+    ],
+    "objectArray": Array [
+      Object {
+        "name": "John",
+        "phoneNumbers": Array [
+          "00386123123",
+        ],
+        "surname": "Snow",
+      },
+    ],
+    "simpleArray": Array [
+      "car",
+      "cat",
+    ],
+  },
+  "basic": Object {
+    "age": 91,
+    "birthday": undefined,
+    "moreInfo": Object {
+      "phone": "u",
+    },
+    "password": "toor",
+    "username": "root",
+    "weight": 33.8,
+  },
+  "constExample": "Please read our Privacy Policy carefully.",
+  "filesDemo": Object {
+    "fileAsBinary": undefined,
+    "fileAsId": undefined,
+    "fileAsString": null,
+  },
+}
+`;
+
+exports[`JsfBuilder Basic JsfBuilder functionality 2`] = `
+Object {
+  "arrayDemo": Object {
+    "fixedArray": Array [
+      "SI",
+      12345,
+    ],
+    "nestedArray": Array [
+      Array [
+        1,
+        2,
+        3,
+      ],
+    ],
+    "objectArray": Array [
+      Object {
+        "name": "John",
+        "phoneNumbers": Array [
+          "00386123123",
+        ],
+        "surname": "Snow",
+      },
+    ],
+    "simpleArray": Array [
+      "car",
+      "cat",
+    ],
+  },
+  "basic": Object {
+    "age": 91,
+    "birthday": null,
+    "moreInfo": Object {
+      "phone": "u",
+    },
+    "password": "toor",
+    "username": "root",
+    "weight": 33.8,
+  },
+  "constExample": "Please read our Privacy Policy carefully.",
+  "filesDemo": Object {
+    "fileAsBinary": undefined,
+    "fileAsId": null,
+    "fileAsString": null,
+  },
+}
+`;
+
+exports[`JsfBuilder Basic JsfBuilder functionality 3`] = `
+Object {
+  "errors": Array [],
+  "properties": Object {
+    "arrayDemo": Object {
+      "errors": Array [],
+      "properties": Object {
+        "fixedArray": Object {
+          "errors": Array [],
+          "items": Array [
+            Object {
+              "errors": Array [],
+              "status": "VALID",
+            },
+            Object {
+              "errors": Array [],
+              "status": "VALID",
+            },
+          ],
+          "status": "VALID",
+        },
+        "nestedArray": Object {
+          "errors": Array [],
+          "items": Array [
+            Object {
+              "errors": Array [],
+              "items": Array [
+                Object {
+                  "errors": Array [],
+                  "status": "VALID",
+                },
+                Object {
+                  "errors": Array [],
+                  "status": "VALID",
+                },
+                Object {
+                  "errors": Array [],
+                  "status": "VALID",
+                },
+              ],
+              "status": "VALID",
+            },
+          ],
+          "status": "VALID",
+        },
+        "objectArray": Object {
+          "errors": Array [],
+          "items": Array [
+            Object {
+              "errors": Array [],
+              "properties": Object {
+                "name": Object {
+                  "errors": Array [],
+                  "status": "VALID",
+                },
+                "phoneNumbers": Object {
+                  "errors": Array [],
+                  "items": Array [
+                    Object {
+                      "errors": Array [],
+                      "status": "VALID",
+                    },
+                  ],
+                  "status": "VALID",
+                },
+                "surname": Object {
+                  "errors": Array [],
+                  "status": "VALID",
+                },
+              },
+              "status": "VALID",
+            },
+          ],
+          "status": "VALID",
+        },
+        "simpleArray": Object {
+          "errors": Array [],
+          "items": Array [
+            Object {
+              "errors": Array [],
+              "status": "VALID",
+            },
+            Object {
+              "errors": Array [],
+              "status": "VALID",
+            },
+          ],
+          "status": "VALID",
+        },
+      },
+      "status": "VALID",
+    },
+    "basic": Object {
+      "errors": Array [],
+      "properties": Object {
+        "age": Object {
+          "errors": Array [],
+          "status": "VALID",
+        },
+        "birthday": Object {
+          "errors": Array [],
+          "status": "VALID",
+        },
+        "moreInfo": Object {
+          "errors": Array [],
+          "properties": Object {
+            "phone": Object {
+              "errors": Array [],
+              "status": "VALID",
+            },
+          },
+          "status": "VALID",
+        },
+        "password": Object {
+          "errors": Array [
+            MinimumLengthValidationError {
+              "data": Object {
+                "minLength": 8,
+              },
+              "errorCode": "prop/min-length",
+              "errorMessage": "Minimum length is {{ minLength }}",
+              "messageTemplate": null,
+            },
+          ],
+          "status": "INVALID",
+        },
+        "username": Object {
+          "errors": Array [],
+          "status": "VALID",
+        },
+        "weight": Object {
+          "errors": Array [],
+          "status": "VALID",
+        },
+      },
+      "status": "INVALID",
+    },
+    "constExample": Object {
+      "errors": Array [],
+      "status": "VALID",
+    },
+    "filesDemo": Object {
+      "errors": Array [],
+      "properties": Object {
+        "fileAsBinary": Object {
+          "errors": Array [],
+          "status": "VALID",
+        },
+        "fileAsId": Object {
+          "errors": Array [],
+          "status": "VALID",
+        },
+        "fileAsString": Object {
+          "errors": Array [],
+          "status": "VALID",
+        },
+      },
+      "status": "VALID",
+    },
+  },
+  "status": "INVALID",
+}
+`;

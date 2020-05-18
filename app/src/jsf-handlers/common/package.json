@@ -1,0 +1,15 @@
+{
+  "name": "@kalmia/jsf-handlers-common",
+  "version": "1.0.0",
+  "author": "Kalmia LTD",
+  "dependencies": {
+    "braintree-web": "^3.41.0",
+    "ng2-file-upload": "^1.3.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.kalmia.si"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.1"
+  }
+}

@@ -1,0 +1,83 @@
+$swift-ease-out-duration: 400ms !default;
+$swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
+
+.jsf-layout-progress-tracker-step {
+  position: relative;
+  transition: background-color $swift-ease-out-duration $swift-ease-out-timing-function;
+
+  &.interactive {
+    cursor: pointer;
+  }
+
+  &:not(.interactive) {
+    background-color: transparent !important;
+  }
+}
+
+.progress-tracker-step-bar {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+
+  left: 50%;
+  top: calc(30px + 30px / 2 - 8px / 2);
+
+  .progress-tracker-step-bar-fill {
+    height: 100%;
+  }
+}
+
+.progress-tracker-step-wrapper {
+  width: 100%;
+  position: relative;
+
+  .progress-tracker-step-title {
+    height: 30px;
+    text-align: center;
+    font-size: 1.15em;
+  }
+
+  .progress-tracker-step-description {
+    text-align: center;
+    font-size: 0.8em;
+
+    word-break: break-word;
+  }
+
+  .progress-tracker-step-dot-wrapper {
+    display: flex;
+    height: 30px;
+
+    justify-content: center;
+    align-items: center;
+
+
+    .progress-tracker-step-dot {
+      width: 30px;
+      height: 30px;
+      z-index: 1;
+
+      .progress-tracker-step-dot-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        transition: all $swift-ease-out-duration $swift-ease-out-timing-function;
+
+        .active-dot {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+
+          transition: all $swift-ease-out-duration $swift-ease-out-timing-function;
+        }
+      }
+    }
+  }
+}
+

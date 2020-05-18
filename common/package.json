@@ -1,0 +1,71 @@
+{
+  "name": "@kalmia/jsf-common",
+  "version": "3.3.15",
+  "author": "Kalmia LTD",
+  "license": "GPL-3.0-only",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "npm run build:ts && npm run tslint",
+    "build:doc": "typedoc --out ./doc/ --exclude '**/*.spec.ts' ./src/",
+    "build:ts": "rimraf ./lib/* && tsc",
+    "build:ts:es2015": "rimraf ./lib5/* && tsc -p ./tsconfig.es2015.json",
+    "build:watch": "tsc-watch",
+    "build:watch:dpf": "tsc-watch --onSuccess \"npm run cp:dev:dpf\"",
+    "build:watch:api": "tsc-watch --onSuccess \"npm run cp:dev:api\"",
+    "build:watch:api2": "tsc-watch --onSuccess \"npm run cp:dev:api2\"",
+    "build:watch:es2015": "tsc-watch -p ./tsconfig.es2015.json --onSuccess \"npm run cp:dev:app\"",
+    "cp:dev:dpf": "ncp ./lib ../../dpf/node_modules/@kalmia/jsf-common/lib",
+    "cp:dev:api": "ncp ./lib ../../../Configurator/configurator-api/node_modules/@kalmia/jsf-common/lib",
+    "cp:dev:api2": "ncp ./lib ../../configurator-api/node_modules/@kalmia/jsf-common/lib",
+    "cp:dev:app": "ncp ./lib5 ../app/node_modules/@kalmia/jsf-common-es2015/lib",
+    "cp:dev:con-app": "ncp ./lib5 ../../configurator-app/node_modules/@kalmia/jsf-common-es2015/lib",
+    "dev:setup": "yarn install --peer",
+    "send": "./publish.sh",
+    "test": "jest --forceExit",
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "watch": "tsc-watch"
+  },
+  "pre-commit": [
+    "build",
+    "test"
+  ],
+  "dependencies": {
+    "@types/lodash": "^4.14.118",
+    "@types/validator": "^9.4.2",
+    "bson": "^4.0.1",
+    "bson-objectid": "^1.2.4",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "object-hash": "^2.0.3",
+    "validator": "^10.9.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.2",
+    "@types/node": "~8.9.4",
+    "big.js": "^5.2.2",
+    "concurrently": "^3.5.1",
+    "jest": "^22.4.3",
+    "ncp": "^2.0.0",
+    "nodemon": "^1.18.4",
+    "pre-commit": "^1.2.2",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^2.6.2",
+    "rxjs": "^6.3.3",
+    "ts-jest": "^22.4.2",
+    "ts-node": "^5.0.1",
+    "tsc-watch": "^1.0.31",
+    "tslint": "^5.9.1",
+    "typescript": "3.1.3"
+  },
+  "peerDependencies": {
+    "big.js": "^5.2.2",
+    "rxjs": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=8.5"
+  },
+  "publishConfig": {
+    "registry": "https://npm.kalmia.si"
+  }
+}

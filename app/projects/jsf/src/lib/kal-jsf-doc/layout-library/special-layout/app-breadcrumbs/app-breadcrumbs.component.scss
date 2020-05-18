@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.breadcrumbs-container {
+  font-size: 15px;
+}
+
+.fragment {
+  display: inline;
+
+  .fragment-name {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .fragment-separator {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}

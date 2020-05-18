@@ -1,0 +1,147 @@
+$theme-property-prefix: '__';
+
+//
+// Colors
+//
+@each $color-name, $color in $theme-colors-map {
+
+  //
+  // Color properties
+  //
+  @each $property in $theme-colors-properties {
+
+    // Base color
+    .#{ $theme-property-prefix }#{ $property }--#{ $color-name } {
+      #{ $property }: #{ $color } !important;
+    }
+
+    // Opacity variations
+    @each $opacity-level in $theme-opacity-levels {
+      .#{ $theme-property-prefix }#{ $property }--#{ $color-name }-#{ $opacity-level } {
+        #{ $property }: set-opacity($color, $opacity-level * 0.01) !important;
+      }
+    }
+  }
+
+
+  //
+  // Shadows
+  //
+  @if $theme-shadows-enabled == true {
+    .#{ $theme-property-prefix }shadow--#{ $color-name } {
+      @include box-shadow-preset-shadow($color);
+    }
+    .#{ $theme-property-prefix }shadow-sm--#{ $color-name } {
+      @include box-shadow-preset-shadow-sm($color);
+    }
+    .#{ $theme-property-prefix }shadow-md--#{ $color-name } {
+      @include box-shadow-preset-shadow-md($color);
+    }
+    .#{ $theme-property-prefix }shadow-lg--#{ $color-name } {
+      @include box-shadow-preset-shadow-lg($color);
+    }
+    .#{ $theme-property-prefix }shadow-xl--#{ $color-name } {
+      @include box-shadow-preset-shadow-xl($color);
+    }
+    .#{ $theme-property-prefix }shadow-inner--#{ $color-name } {
+      @include box-shadow-preset-shadow-inner($color);
+    }
+    .#{ $theme-property-prefix }shadow-outline--#{ $color-name } {
+      @include box-shadow-preset-shadow-outline($color);
+    }
+    .#{ $theme-property-prefix }shadow-raised--#{ $color-name } {
+      @include box-shadow-preset-shadow-raised($color);
+    }
+    .#{ $theme-property-prefix }shadow-menu--#{ $color-name } {
+      @include box-shadow-preset-shadow-menu($color);
+    }
+    .#{ $theme-property-prefix }shadow-card--#{ $color-name } {
+      @include box-shadow-preset-shadow-card($color);
+    }
+    .#{ $theme-property-prefix }shadow-card-sm--#{ $color-name } {
+      @include box-shadow-preset-shadow-card-sm($color);
+    }
+    .#{ $theme-property-prefix }shadow-card-md--#{ $color-name } {
+      @include box-shadow-preset-shadow-card-md($color);
+    }
+    .#{ $theme-property-prefix }shadow-card-lg--#{ $color-name } {
+      @include box-shadow-preset-shadow-card-lg($color);
+    }
+    .#{ $theme-property-prefix }shadow-card-xl--#{ $color-name } {
+      @include box-shadow-preset-shadow-card-xl($color);
+    }
+    .#{ $theme-property-prefix }shadow-float--#{ $color-name } {
+      @include box-shadow-preset-shadow-float($color);
+    }
+    .#{ $theme-property-prefix }shadow-float-sm--#{ $color-name } {
+      @include box-shadow-preset-shadow-float-sm($color);
+    }
+    .#{ $theme-property-prefix }shadow-float-md--#{ $color-name } {
+      @include box-shadow-preset-shadow-float-md($color);
+    }
+    .#{ $theme-property-prefix }shadow-float-lg--#{ $color-name } {
+      @include box-shadow-preset-shadow-float-lg($color);
+    }
+    .#{ $theme-property-prefix }shadow-float-xl--#{ $color-name } {
+      @include box-shadow-preset-shadow-float-xl($color);
+    }
+  }
+}
+
+//
+// Contrast colors
+//
+@each $color-name, $color in $theme-contrast-colors-map {
+
+  //
+  // Color properties
+  //
+  @each $property in $theme-colors-properties {
+
+    // Base color
+    .#{ $theme-property-prefix }#{ $property }--#{ $color-name } {
+      #{ $property }: #{ $color } !important;
+    }
+
+  }
+
+
+}
+
+//
+// Palette colors
+//
+@each $color-name, $color-palette in $theme-palette-colors {
+
+  //
+  // Color properties
+  //
+  @each $property in $theme-colors-properties {
+
+    @each $level in (50, 100, 200, 300, 400, 500, 600, 700, 800, 900, A100, A200, A400, A700) {
+      // Base
+      .#{ $theme-property-prefix }#{ $property }--#{ $color-name }-p#{ to_lower_case(#{ $level }) } {
+        #{ $property }: mat-color($color-palette, $level) !important;
+      }
+
+      // Contrast
+      .#{ $theme-property-prefix }#{ $property }--#{ $color-name }-contrast-p#{ to_lower_case(#{ $level }) } {
+        #{ $property }: mat-contrast($color-palette, $level) !important;
+      }
+    }
+
+  }
+
+}
+
+//
+// Text color
+//
+@each $property in $theme-colors-properties {
+
+  .#{ $theme-property-prefix }#{ $property }--text {
+    #{ $property }: $text !important;
+  }
+
+}
+

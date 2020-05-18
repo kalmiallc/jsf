@@ -1,0 +1,5 @@
+<div class="jsf-error-message" *ngIf="hasMessages">
+  <ng-container *ngFor="let message of messages">
+    <span class="jsf-error __color--warn">{{ message }}</span>
+  </ng-container>
+</div>

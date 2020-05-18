@@ -1,0 +1,33 @@
+# dependencies
+/node_modules
+package-lock.json
+
+# IDE
+/.idea
+/.awcache
+/.vscode
+
+# misc
+lerna-debug.log
+npm-debug.log
+yarn-error.log
+
+# example
+/example
+
+# tests
+/integration
+/coverage
+/.nyc_output
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# API keys and secrets
+.env
+
+# Compiled
+/lib
+/lib5
+/packet

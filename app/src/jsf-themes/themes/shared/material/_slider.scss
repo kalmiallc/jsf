@@ -1,0 +1,25 @@
+.mat-slider {
+
+  // Disabled cursor
+  &.mat-slider-disabled {
+    cursor: not-allowed;
+  }
+
+  // Horizontal slider
+  &.mat-slider-horizontal {
+    // Take up full width of the parent element
+    width: 100%;
+
+    // Adjust height of the slider
+    height: 24px;
+
+    .mat-slider-wrapper {
+      top: 11px // Half height - 1px
+    }
+  }
+
+  // Vertical slider
+  &.mat-slider-vertical {
+    height: 100%;
+  }
+}

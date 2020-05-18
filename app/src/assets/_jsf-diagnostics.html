@@ -1,0 +1,445 @@
+<!doctype html>
+<html>
+<head>
+  <xmeta http-equiv="refresh" content="60"/>
+
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css"/>
+  <style>
+    #graph {
+      height: calc(100vh - 30px);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+    }
+  </style>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.js"
+    integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+          crossorigin="anonymous"></script>
+  <script>
+      const shapes = {
+          'array': 'triangle',
+          'object': 'diamond',
+          'binary': 'dot',
+          'boolean': 'dot',
+          'date': 'dot',
+          'id': 'dot',
+          'null': 'dot',
+          'number': 'dot',
+          'integer': 'dot',
+          'ref': 'dot',
+          'string': 'dot'
+      };
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const parentCbId = urlParams.get('id');
+      let playSpeed = 300;
+      let nodeValidateCount = {};
+      let nodeEnabledCalcCount = {};
+      let statResolveNodesTimesTable = {};
+      let statResolverTimesTable = [];
+      //////////////////////////////////////////////////
+
+      /**
+       * @type JsfBuilder
+       */
+      let jsfBuilder;
+
+      let nodes, edges, network;
+
+      function start() {
+          const {nodes, edges} = _getInitData();
+          _startTreeNetwork(nodes, edges);
+      }
+
+      /**
+       * @param node JsfAbstractPropBuilder
+       */
+      function jsfNodeToNode(node, options) {
+          options = options || {};
+          const colors = {
+              VALID: 'yellowgreen',
+              INVALID: 'red',
+              PENDING: 'orange',
+              DISABLED: 'gray',
+          };
+
+          const x = {
+              font: {multi: true/*, background: 'pink'*/ },
+              color: { background: colors[node.status] } ,
+              shape: shapes[node.prop.type] || 'star',
+              id: node.path,
+              title: node.path,
+              label: `<b>${node.propName}</b>, E:<b>${nodeEnabledCalcCount[node.path] || 0}</b>, V:<b>${nodeValidateCount[node.path] || 0}</b>, `,
+              size: (!!node.parentProp ? 10 : 30) + (nodeValidateCount[node.path] || 0),
+              borderWidth: 2
+          };
+
+          if (node._enabledIfStatus === null) {
+              x.label += '💩'
+          } else {
+              if (node._enabledIfStatus) {
+                  x.label += '✅'
+              } else {
+                  x.label += '⛔'
+              }
+          }
+
+          if (x.color === 'yellowgreen' && (nodeValidateCount[node.path] || 0) > 1) {
+              x.color.background = '#006d24';
+          }
+
+          if (options.enabledPending) {
+              x.color.background = '#00006d';
+              x.color.border = '#00006d';
+          }
+          if (options.calcEnabled) {
+              x.color.background = '#6c76cf';
+              x.color.border = '#00006d';
+              x.shape = 'star';
+          }
+          if (options.enabledAsParentNotify) {
+              x.color.background = '#00356d';
+              x.color.border = '#00006d';
+              x.shape = 'star';
+          }
+          if (options.enabledResolved) {
+              x.color.border = '#00006d';
+          }
+
+          if (options.validatePending) {
+              x.color.background = '#a000a0';
+              x.color.border = '#a000a0';
+          }
+          if (options.validating) {
+              x.color.background = '#d98dcf';
+              x.color.border = '#a000a0';
+              x.shape = 'star';
+          }
+          if (options.validateResolved) {
+              x.color.border = '#a000a0';
+          }
+
+          return x;
+      }
+
+      function jsfEdgeToEdge(from, to) {
+          const id = from + ' --> ' + to;
+          return {id, from, to, arrows: 'to'}
+      }
+      function jsfEdgeToEdgeForEnabledIf(from, to) {
+          const id = from + ' --> ' + to;
+          return {id, from, to, arrows: 'to', dashes:true, color: { color: 'blue'}}
+      }
+
+      function updateNode(node, options) {
+          const uNode = jsfNodeToNode(node, options);
+          tUpdateNode(uNode);
+      }
+
+      function _getInitData() {
+          const dependenciesList = jsfBuilder.resolver.dependenciesListForValidate;
+          const xNodes = [];
+          const xEdges = [];
+          Object.keys(dependenciesList)
+              .forEach(nodePath => {
+                  const node = jsfBuilder.propBuilder.getControlByPath(nodePath);
+                  xNodes.push(jsfNodeToNode(node));
+                  dependenciesList[nodePath].forEach(depPath => {
+                      xEdges.push(jsfEdgeToEdge(depPath, nodePath));
+                  })
+              });
+
+          const dependenciesListForEnabledIf = jsfBuilder.resolver.dependenciesListForEnabledIf;
+          Object.keys(dependenciesListForEnabledIf)
+              .forEach(nodePath => {
+                  const node = jsfBuilder.propBuilder.getControlByPath(nodePath);
+                  dependenciesListForEnabledIf[nodePath].forEach(depPath => {
+                      xEdges.push(jsfEdgeToEdgeForEnabledIf(depPath, nodePath));
+                  })
+              });
+
+          return {
+              nodes: xNodes, edges: xEdges
+          }
+      }
+
+      function _startTreeNetwork(nodesArray, edgesArray) {
+          // create an array with nodes
+          nodes = new vis.DataSet(nodesArray);
+
+          // create an array with edges
+          edges = new vis.DataSet(edgesArray);
+
+          // create a network
+          var container = document.getElementById('graph');
+          var data = {
+              nodes: nodes,
+              edges: edges
+          };
+          var options = {
+              interaction: {hover: true},
+              nodes: {
+                  shape: 'dot',
+                  scaling: {
+                      min: 10,
+                      max: 30
+                  },
+                  font: {
+                      size: 12,
+                      face: 'Tahoma'
+                  }
+              },
+              edges: {
+                  width: 0.15,
+                  color: {inherit: 'from'},
+                  smooth: true
+              },
+              physics: {
+                  stabilization: false,
+                  repulsion: {
+                      centralGravity: 0.1,
+                      springLength: 300,
+                      springConstant: 0.05,
+                      nodeDistance: 200,
+                      damping: 0.09
+                  },
+              },
+              interaction: {
+                  tooltipDelay: 200,
+                  hideEdgesOnDrag: true
+              },
+              // layout: {
+              //   hierarchical: {
+              //     // direction: 'UD',
+              //     sortMethod: "directed",
+              //   }
+              // }
+          };
+          network = new vis.Network(container, data, options);
+
+          network.on("click", function (params) {
+              params.event = "[original event]";
+              const id = this.getNodeAt(params.pointer.DOM);
+              console.log(id);
+              try {
+                  console.log(jsfBuilder.getProp(id));
+              } catch (e) {
+                  console.error(e);
+              }
+          });
+      }
+
+      //////////////////////////////////////////////////
+
+      const tStack = [];
+      let tStackPause = false;
+
+      const tStackAction = {
+          tUpdateNode: (x) => {
+              nodes.update(x);
+          },
+
+          tAddNode: (x) => {
+              nodes.add(x);
+          },
+
+          tAddEdge: (x) => {
+              edges.add(x);
+          },
+
+          tRemoveEdge: (x) => {
+              edges.remove(x);
+          },
+
+          tRemoveNode: (x) => {
+              nodes.remove(x);
+          }
+      };
+
+      function tStackNextToFirstNonPending(x) {
+          while (tStack.length && (!tStack[0].x.color || tStack[0].x.color === 'orange')) {
+              const {f, x} = tStack.shift();
+              tStackAction[f](x);
+          }
+      }
+
+      function tStackNextFast(x) {
+          for (let i = 0; i < x; i++) {
+              if (tStack.length) {
+                  const {f, x} = tStack.shift();
+                  tStackAction[f](x);
+              }
+          }
+      }
+
+      function tStackNext() {
+          if (tStackPause) {
+              return;
+          }
+          setTimeout(() => {
+              tStackNextFast(1);
+
+              if (!tStackPause && tStack.length) {
+                  tStackNext();
+              }
+          }, playSpeed);
+      }
+
+      function tStackAdd(f, x) {
+          tStack.push({f, x});
+          if (tStack.length === 1) {
+              tStackNext();
+          }
+      }
+
+      function tUpdateNode(x) {
+          tStackAdd('tUpdateNode', x);
+      }
+
+      function tAddNode(x) {
+          tStackAdd('tAddNode', x);
+      }
+
+      function tAddEdge(x) {
+          tStackAdd('tAddEdge', x);
+      }
+
+      function tRemoveEdge(x) {
+          tStackAdd('tRemoveEdge', x);
+      }
+
+      function tRemoveNode(x) {
+          tStackAdd('tRemoveNode', x);
+      }
+
+      function reset() {
+          nodeValidateCount = {};
+          nodeEnabledCalcCount = {};
+          nodes.update(nodes.map(x => {
+              const node = jsfBuilder.propBuilder.getControlByPath(x.id);
+              node._resolverStatus = {};
+              return jsfNodeToNode(node);
+          }));
+      }
+
+      //////////////////////////////////////////////////
+
+      const actions = {
+          '_INIT': ({builder, id} = data) => {
+              jsfBuilder = builder;
+              window.jsfBuilder = jsfBuilder;
+              start();
+          },
+          'PROP-STATUS-CHANGE': ({node} = data) => {
+              updateNode(node);
+          },
+
+
+          'PENDING-NODE-ENABLED-IF': ({node} = data) => {
+              updateNode(node, { enabledPending: true });
+          },
+          'RESOLVED-NODE-ENABLED-IF': ({node} = data) => {
+              updateNode(node, { enabledResolved: true });
+          },
+          'PENDING-NODE-VALIDATE': ({node} = data) => {
+              updateNode(node, { validatePending: true });
+          },
+          'NODE-ENABLED-IF-PARENT-NOTIFY': ({node} = data) => {
+              updateNode(node, { enabledAsParentNotify: true });
+          },
+
+          'PROP-VALIDATE': ({node} = data) => {
+              nodeValidateCount[node.path] = nodeValidateCount[node.path] || 0;
+              nodeValidateCount[node.path]++;
+              updateNode(node, {  validating: true });
+          },
+          'PROP-CALC-ENABLED': ({node} = data) => {
+              nodeEnabledCalcCount[node.path] = nodeEnabledCalcCount[node.path] || 0;
+              nodeEnabledCalcCount[node.path]++;
+              updateNode(node, { calcEnabled: true });
+          },
+
+          'ON-NODE-INIT': ({node} = data) => {
+              tAddNode(jsfNodeToNode(node));
+              const reversedDependenciesList = jsfBuilder.resolver.reversedDependenciesListForValidate;
+              reversedDependenciesList[node.path].forEach(depPath => {
+                  tAddEdge(jsfEdgeToEdge(node.path, depPath));
+              });
+
+              const reversedDependenciesListForEnabledIf = jsfBuilder.resolver.dependenciesListForEnabledIf;
+              (reversedDependenciesListForEnabledIf[node.path] || []).forEach(depPath => {
+                  tAddEdge(jsfEdgeToEdgeForEnabledIf(depPath, node.path));
+              });
+          },
+          'ON-NODE-DESTROY': ({id} = data) => {
+              tRemoveNode({id});
+              console.log(edges);
+              //tRemoveEdge edges.remove({id: document.getElementById('edge-id').value});
+          },
+          'RESOLVED-NODE-VALIDATE': ({node, duration} = data) => {
+              statResolveNodesTimesTable[node.path] = {
+                  duration
+              };
+              updateNode(node, { validateResolved: true });
+          },
+
+          'RESOLVER-FIN': ({id, duration} = data) => {
+              statResolverTimesTable.push({id, duration});
+              console.table(statResolverTimesTable);
+              console.table(statResolveNodesTimesTable);
+              console.log(`Resolver duration: ${Object.keys(statResolveNodesTimesTable).reduce((a, c) => statResolveNodesTimesTable[c].duration + a, 0)}`);
+          },
+          'RESOLVER-START': ({id} = data) => {
+              statResolveNodesTimesTable = {};
+          }
+      };
+
+      function onDiagnosticsMessage(type, data) {
+          console.info('MSG: ' + type, data);
+          if (!actions[type]) {
+              return console.error('JSF DIAG, invalid action', type, data)
+          }
+          actions[type](data);
+      }
+
+      //////////////////////////////////////////////////////////
+      $(function () {
+          window.opener['__jsfDiagnosticsAction' + parentCbId]('INIT-REQ');
+      });
+  </script>
+</head>
+<body>
+<div>
+  <button id="pause"
+          onclick="tStackPause = true; this.disabled = true; document.getElementById('play').disabled = false;">⏸
+  </button>
+  <button id="play" disabled
+          onclick="tStackPause = false; this.disabled = true; document.getElementById('pause').disabled = false; tStackNext()">
+    ▶
+  </button>
+  |
+  <button title="FAST FORWARD NEXT X" onclick="tStackNextFast(1)">⏩</button>
+  <button title="FAST FORWARD NEXT X" onclick="tStackNextFast(5)">⏭ +5</button>
+  <button title="FAST FORWARD NEXT X" onclick="tStackNextFast(10)">⏭ +10</button>
+  <button title="FAST FORWARD NEXT X" onclick="tStackNextFast(50)">⏭ +50</button>
+  <button title="FAST FORWARD NEXT X" onclick="tStackNextFast(100)">⏭ +100</button>
+  <button title="FAST FORWARD NEXT X" onclick="tStackNextFast(1000)">⏭ +1000</button>
+  |
+  <button title="PLAY SPEED IN MS" onclick="playSpeed = 5">🕐 5</button>
+  <button title="PLAY SPEED IN MS" onclick="playSpeed = 100">🕐 100</button>
+  <button title="PLAY SPEED IN MS" onclick="playSpeed = 300">🕐 300</button>
+  <button title="PLAY SPEED IN MS" onclick="playSpeed = 1000">🕐 1000</button>
+  |
+  <button title="PLAY TO NEXT NON-PENDING" onclick="tStackNextToFirstNonPending()">🔜</button>
+  <button title="RESET" onclick="reset()">🚮</button>
+</div>
+<div id="graph"></div>
+</body>
+</html>

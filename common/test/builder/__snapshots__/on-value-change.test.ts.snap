@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`On value change updateDependencyValue 1`] = `
+Object {
+  "a": "privzeto",
+  "b": "123123",
+  "c": "KONSTANTA",
+  "d": "KONSTANTA ZA DDD",
+  "obj": Object {
+    "objProp1": "123",
+  },
+  "trigger": "UUUUUU",
+}
+`;

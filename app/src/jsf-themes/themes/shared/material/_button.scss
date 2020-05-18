@@ -1,0 +1,28 @@
+button[mat-button],
+button[mat-raised-button],
+button[mat-stroked-button],
+button[mat-flat-button],
+button[mat-fab],
+button[mat-mini-fab] {
+
+  // Make text overflow button content from the center
+  display: inline-flex;
+  justify-content: center;
+
+  // Font
+  font-family: $font-family-sans-serif;
+
+
+  // Label
+  .mat-button-wrapper {
+
+    // Safari 9+
+    @supports (-webkit-marquee-repetition:infinite) and (object-fit:fill) {
+      // Force the label to the center of the button
+      flex: 1;
+      margin-left: -100%;
+      margin-right: -100%;
+    }
+  }
+
+}

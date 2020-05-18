@@ -1,0 +1,15 @@
+//
+// This file contains all the theme & utility class generation logic. You should only import this file once in your app!
+//
+
+// Theme styles
+@import './reboot';
+@import './grid';
+@import './material';
+@import './typography';
+
+// Utility classes
+@import './utilities/index';
+
+// Common styles, browser fixes & optimizations
+@import './material/index';

@@ -1,0 +1,115 @@
+// stylelint-disable declaration-no-important, selector-list-comma-newline-after
+
+//
+// Headings
+//
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin-bottom: $headings-margin-bottom;
+  font-family:   $headings-font-family;
+  font-weight:   $headings-font-weight;
+  line-height:   $headings-line-height;
+  color:         $headings-color;
+}
+
+h1, .h1 { font-size: $h1-font-size; }
+h2, .h2 { font-size: $h2-font-size; }
+h3, .h3 { font-size: $h3-font-size; }
+h4, .h4 { font-size: $h4-font-size; }
+h5, .h5 { font-size: $h5-font-size; }
+h6, .h6 { font-size: $h6-font-size; }
+
+.font-size-h1 { font-size: $h1-font-size; }
+.font-size-h2 { font-size: $h2-font-size; }
+.font-size-h3 { font-size: $h3-font-size; }
+.font-size-h4 { font-size: $h4-font-size; }
+.font-size-h5 { font-size: $h5-font-size; }
+.font-size-h6 { font-size: $h6-font-size; }
+
+.font-size-base { font-size: $font-size-base }
+.font-size-xs { font-size: $font-size-xs }
+.font-size-sm { font-size: $font-size-sm }
+.font-size-lg { font-size: $font-size-lg }
+.font-size-xl { font-size: $font-size-xl }
+
+// Type display classes
+.display-1 {
+  font-size:   $display1-size;
+  font-weight: $display1-weight;
+  line-height: $display-line-height;
+}
+
+.display-2 {
+  font-size:   $display2-size;
+  font-weight: $display2-weight;
+  line-height: $display-line-height;
+}
+
+.display-3 {
+  font-size:   $display3-size;
+  font-weight: $display3-weight;
+  line-height: $display-line-height;
+}
+
+.display-4 {
+  font-size:   $display4-size;
+  font-weight: $display4-weight;
+  line-height: $display-line-height;
+}
+
+//
+// Lists
+//
+.list-unstyled {
+  @include list-unstyled;
+}
+
+// Inline turns list items into inline-block
+.list-inline {
+  @include list-unstyled;
+}
+
+.list-inline-item {
+  display: inline-block;
+
+  &:not(:last-child) {
+    margin-right: $list-inline-padding;
+  }
+}
+
+//
+// Horizontal rules
+//
+hr {
+  margin-top: $hr-margin-y;
+  margin-bottom: $hr-margin-y;
+  border: 0;
+  border-top: $hr-border-width solid $hr-border-color;
+}
+
+//
+// Emphasis
+//
+small,
+.small {
+  font-size:   $small-font-size;
+  font-weight: $font-weight-normal;
+}
+
+mark,
+.mark {
+  padding:          $mark-padding;
+  background-color: $mark-bg;
+}
+
+//
+// No text selection
+//
+.no-text-selection {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select:   none; /* Safari */
+  -khtml-user-select:    none; /* Konqueror HTML */
+  -moz-user-select:      none; /* Firefox */
+  -ms-user-select:       none; /* Internet Explorer/Edge */
+  user-select:           none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}

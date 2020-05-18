@@ -1,0 +1,79 @@
+<div class="">
+	<mat-button-toggle-group #group="matButtonToggleGroup">
+		<mat-button-toggle *ngFor="let item of toggleOptions;" (change)="selectionChanged($event)" [value]="item">{{item}}
+		</mat-button-toggle>
+	</mat-button-toggle-group>
+
+	<button mat-button (click)=testIterator()>
+		Test iterator
+	</button>
+	<button mat-button (click)=debugTree()>
+		Debug tree
+	</button>
+	<button mat-button (click)=debugProp()>
+		Debug prop
+	</button>
+	<button mat-button (click)=debugLayout()>
+		Debug layout
+	</button>
+	<button mat-button (click)=collapseAll()>
+		Collapse all
+	</button>
+	<button mat-button (click)=expandAll()>
+		Expand all
+	</button>
+
+	<tree-root (moveNode)="onMoveNode($event)" [nodes]="treeData" [options]="options">
+	</tree-root>
+
+	<!-- Context menu trigger element -->
+	<mat-menu #contextMenu="matMenu">
+		<ng-template matMenuContent>
+			<div class="text-center">
+				<span class="d-block my-n1 text-capitalize __color--grey-dark">{{ clickedNode ? clickedNode.data.name : '' }}</span>
+			</div>
+
+			<hr>
+
+			<button mat-menu-item
+				(click)="addNewNode()">
+				<mat-icon>add</mat-icon>
+				<span>New {{ clickedNode && clickedNode.data.type === 'prop' ? 'prop' : 'layout'}} item</span>
+			</button>
+			<button mat-menu-item
+					(click)="duplicateNode()">
+				<mat-icon>file_copy</mat-icon>
+				<span>Duplicate</span>
+			</button>
+			<button mat-menu-item
+					(click)="copyNode()">
+				<mat-icon>insert_drive_file</mat-icon>
+				<span>Copy</span>
+			</button>
+			<button mat-menu-item
+					[disabled]="!clipboardNode"
+					(click)="pasteNode()">
+				<mat-icon>attach_file</mat-icon>
+				<span>Paste</span>
+			</button>
+
+			<hr>
+
+			<button mat-menu-item
+					(click)="deleteNode()">
+				<mat-icon class="__color--warn">delete_forever</mat-icon>
+				<span class="__color--warn">Delete</span>
+			</button>
+		</ng-template>
+		
+	</mat-menu>
+	
+	<div
+	style="visibility: hidden; position: fixed"
+	[matMenuTriggerFor]="contextMenu"
+	[style.left]="contextMenuPosition.x"
+	[style.top]="contextMenuPosition.y"
+	#contextMenuTrigger="matMenuTrigger">
+	</div>
+
+</div>

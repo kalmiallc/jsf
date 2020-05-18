@@ -1,0 +1,35 @@
+.mat-dialog-container {
+  @include box-shadow-preset-shadow-raised($black);
+  border-radius: $border-radius-sm;
+
+  // This is important for dialogs; otherwise the dialog loading indicator will overflow the dialog content.
+  position: relative;
+
+  // Fix scroll bar that sometimes appreas for a brief moment when the dialog is opened.
+  overflow: hidden;
+
+  // Set max height of scroll host element to be the same as dialog content itself.
+  & > .os-host {
+    max-height: 65vh;
+
+    padding-right: 24px;
+    margin-right: -24px;
+  }
+
+  .mat-dialog-content {
+    position: relative;
+
+    // Set max height of scroll host element to be the same as dialog content itself.
+    & > .os-host {
+      max-height: 65vh;
+
+      padding-right: 24px;
+      margin-right: -24px;
+    }
+  }
+
+  .mat-dialog-title {
+    font-family: $font-family-sans-serif;
+  }
+}
+

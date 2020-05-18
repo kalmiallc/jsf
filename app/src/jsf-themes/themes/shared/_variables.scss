@@ -1,0 +1,351 @@
+@import '~@angular/material/theming';
+
+// Flag to toggle standalone import mode.
+// This means some styles will be applied directly to the page body instead of the theme element.
+//
+$import-standalone: false !default;
+
+
+// Breakpoint viewport sizes and media queries.
+//
+// Breakpoints are defined as a map of (name: minimum width), order from small to large:
+//
+//    (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px)
+//
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+@include _assert-ascending($grid-breakpoints, '$grid-breakpoints');
+@include _assert-starts-at-zero($grid-breakpoints);
+
+$grid-columns: 12 !default;
+$grid-gutter-width: 10px !default;
+
+// Toggle generation of grid classes. Should always be set to true!
+$enable-grid-classes: true !default;
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+) !default;
+@include _assert-ascending($container-max-widths, '$container-max-widths');
+
+
+// Wrapper background color
+//
+$wrapper-background-color: #f5f6f8;
+
+// Sidebar width
+//
+// The default is 0, which should be interpreted as no sidebar (not an admin theme).
+$sidebar-width: 0px !default;
+
+// Content padding
+//
+// Padding in the admin page.
+// The default is 0, which should be interpreted as the theme not being an admin theme.
+$content-padding: 0px !default;
+
+// Opacity
+//
+// Based on material text emphasis specification.
+$opacity-high: 0.87 !default;
+$opacity-medium:        0.60 !default;
+$opacity-low:           0.38 !default;
+
+// Colors
+//
+// We default to a neutral grey color. These colors should be overridden by the specific theme you are using.
+$theme-palette-primary: mat-palette($mat-grey) !default;
+$theme-palette-accent:  mat-palette($mat-grey) !default;
+$theme-palette-warn:    mat-palette($mat-red) !default;
+
+$theme:                 mat-light-theme($theme-palette-primary, $theme-palette-accent, $theme-palette-warn) !default;
+
+$text:                  map-get(map-get($theme, foreground), text);
+
+$success:               #54991c !default;
+$success-contrast:      #fff !default;
+
+$alert:                 #e2a727 !default;
+$alert-contrast:        #fff !default;
+
+$white:                 #fff !default;
+$white-contrast:        #000 !default;
+
+$black:                 #000 !default;
+$black-contrast:        #fff !default;
+
+$grey:                  #848484 !default;
+$grey-contrast:         #000 !default;
+
+$grey-light:            #c2c2c2 !default;
+$grey-light-contrast:   #000 !default;
+
+$grey-dark:             #464646 !default;
+$grey-dark-contrast:    #fff !default;
+
+// stylelint-disable-next-line scss/dollar-variable-default
+$theme-colors-map:      (
+  primary: mat-color($theme-palette-primary),
+  accent: mat-color($theme-palette-accent),
+  warn: mat-color($theme-palette-warn),
+  success: $success,
+  alert: $alert,
+  white: $white,
+  black: $black,
+  grey: $grey,
+  grey-light: $grey-light,
+  grey-dark: $grey-dark,
+) !default;
+
+$theme-contrast-colors-map: (
+  primary-contrast: mat-color($theme-palette-primary, default-contrast),
+  accent-contrast: mat-color($theme-palette-accent, default-contrast),
+  warn-contrast: mat-color($theme-palette-warn, default-contrast),
+  success-contrast: $success-contrast,
+  alert-contrast: $alert-contrast,
+  white-contrast: $white-contrast,
+  black-contrast: $black-contrast,
+  grey-contrast: $grey-contrast,
+  grey-light-contrast: $grey-light-contrast,
+  grey-dark-contrast: $grey-dark-contrast,
+) !default;
+
+$theme-palette-colors: (
+  primary: $theme-palette-primary,
+  accent: $theme-palette-accent,
+  warn: $theme-palette-warn,
+) !default;
+
+$theme-colors-properties: (
+  // Text
+  color,
+
+  // Background
+  background-color,
+
+  // Border
+  border-color,
+  border-top-color,
+  border-right-color,
+  border-bottom-color,
+  border-left-color,
+
+  // Outline
+  outline-color,
+
+  // SVG
+  fill,
+  stroke,
+) !default;
+
+
+$theme-opacity-levels: (
+  10, 20, 30, 40, 50, 60, 70, 80, 90
+) !default;
+
+$theme-shadows-enabled: true !default;
+
+// Theme
+//
+// Settings for the main theme element.
+$body-bg: rgb(245, 246, 248) !default;
+$body-color: set-opacity($black, $opacity-high) !default;
+
+// Spacing
+//
+// Control the default styling of most elements by modifying these
+// variables. Mostly focused on spacing.
+// You can add more entries to the $spacers map, should you need more variation.
+$spacer: 1rem !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$spacers: (
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 2),
+  6: ($spacer * 3),
+  7: ($spacer * 4.5),
+  8: ($spacer * 6),
+  9: ($spacer * 8),
+  10: ($spacer * 10),
+) !default;
+
+// Sizing
+//
+// This variable affects the `.h-*` and `.w-*` classes and their min/max variants.
+// stylelint-disable-next-line scss/dollar-variable-default
+$sizes: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  8: 2rem,
+  10: 2.5rem,
+  12: 3rem,
+  16: 4rem,
+  20: 5rem,
+  24: 6rem,
+  32: 8rem,
+  40: 10rem,
+  48: 12rem,
+  56: 14rem,
+  64: 16rem,
+  auto: auto,
+  px: 1px,
+  #{'1\\/2'}: 50%,
+  #{'1\\/3'}: 33.33333%,
+  #{'2\\/3'}: 66.66667%,
+  #{'1\\/4'}: 25%,
+  #{'2\\/4'}: 50%,
+  #{'3\\/4'}: 75%,
+  #{'1\\/5'}: 20%,
+  #{'2\\/5'}: 40%,
+  #{'3\\/5'}: 60%,
+  #{'4\\/5'}: 80%,
+  #{'1\\/6'}: 16.66667%,
+  #{'2\\/6'}: 33.33333%,
+  #{'3\\/6'}: 50%,
+  #{'4\\/6'}: 66.66667%,
+  #{'5\\/6'}: 83.33333%,
+  #{'1\\/12'}: 8.33333%,
+  #{'2\\/12'}: 16.66667%,
+  #{'3\\/12'}: 25%,
+  #{'4\\/12'}: 33.33333%,
+  #{'5\\/12'}: 41.66667%,
+  #{'6\\/12'}: 50%,
+  #{'7\\/12'}: 58.33333%,
+  #{'8\\/12'}: 66.66667%,
+  #{'9\\/12'}: 75%,
+  #{'10\\/12'}: 83.33333%,
+  #{'11\\/12'}: 91.66667%,
+  full: 100%,
+) !default;
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+// stylelint-disable value-keyword-case
+$font-family-sans-serif: 'Roboto', 'Noto Sans', 'Helvetica Neue' !default;
+$font-family-monospace: 'Roboto Mono', Consolas, 'Liberation Mono', 'Courier New', monospace !default;
+$font-family-base: $font-family-sans-serif !default;
+
+$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
+$font-size-xl: $font-size-base * 1.5 !default;
+$font-size-lg: $font-size-base * 1.25 !default;
+$font-size-sm: $font-size-base * .875 !default;
+$font-size-xs: $font-size-base * .725 !default;
+
+$font-weight-lighter: lighter !default;
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default;
+$font-weight-semi-bold: 600 !default;
+$font-weight-bold: 700 !default;
+$font-weight-bolder: bolder !default;
+
+$font-weight-base: $font-weight-normal !default;
+$line-height-base: 1.5 !default;
+
+$small-font-size: 80% !default;
+
+$h1-font-size: $font-size-base * 2.5 !default;
+$h2-font-size: $font-size-base * 2 !default;
+$h3-font-size: $font-size-base * 1.75 !default;
+$h4-font-size: $font-size-base * 1.5 !default;
+$h5-font-size: $font-size-base * 1.25 !default;
+$h6-font-size: $font-size-base !default;
+
+$headings-margin-bottom: $spacer / 2 !default;
+$headings-font-family: null !default;
+$headings-font-weight: 500 !default;
+$headings-line-height: 1.2 !default;
+$headings-color: null !default;
+
+$display1-size: 6rem !default;
+$display2-size: 5.5rem !default;
+$display3-size: 4.5rem !default;
+$display4-size: 3.5rem !default;
+
+$display1-weight: 300 !default;
+$display2-weight: 300 !default;
+$display3-weight: 300 !default;
+$display4-weight: 300 !default;
+$display-line-height: $headings-line-height !default;
+
+$dt-font-weight: $font-weight-bold !default;
+
+$mark-padding: .2em !default;
+$mark-bg: #fcf8e3 !default;
+
+$list-inline-padding: .5rem !default;
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+$border-width: 2px !default;
+$border-color: $grey !default;
+
+$border-radius: 5px !default;
+$border-radius-lg: 10px !default;
+$border-radius-sm: 3px !default;
+
+$border-styles: (
+  none,
+  hidden,
+  dotted,
+  dashed,
+  solid,
+  double,
+  groove,
+  ridge,
+  inset,
+  outset
+);
+
+$rounded-pill: 50rem !default;
+
+$hr-border-color: $border-color !default;
+$hr-border-width: $border-width !default;
+$hr-margin-y: $spacer !default;
+
+// Links
+//
+// Style anchor elements.
+$link-color: mat-color($theme-palette-accent) !default$link-decoration: none !default;
+$link-hover-color: set-opacity(mat-color($theme-palette-accent), $opacity-medium) !default;
+$link-hover-decoration: underline !default;
+
+// Paragraphs
+//
+// Style p element.
+$paragraph-margin-bottom: 1rem !default;
+
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+$table-cell-padding: .75rem !default;
+
+// Utilities
+//
+$displays: none, inline, inline-block, block, table, table-row, table-cell, flex, inline-flex, initial !default;
+$overflows: auto, visible, hidden !default;
+$positions: static, relative, absolute, fixed, sticky, initial !default;
+$cursors: alias, all-scroll, auto, cell, context-menu, col-resize, copy, crosshair, default, e-resize, ew-resize, grab, grabbing, help, move, n-resize, ne-resize, nesw-resize, ns-resize, nw-resize, nwse-resize, no-drop, none, not-allowed, pointer, progress, row-resize, s-resize, se-resize, sw-resize, text,auto, w-resize, wait, zoom-in, zoom-out !default;

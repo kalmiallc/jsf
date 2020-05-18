@@ -1,0 +1,9 @@
+{
+  "rulesDirectory": [
+    "node_modules/codelyzer"
+  ],
+  "rules": {
+    "no-floating-promises": true,
+    "prefer-on-push-component-change-detection": true
+  }
+}

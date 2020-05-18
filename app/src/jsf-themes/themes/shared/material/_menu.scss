@@ -1,0 +1,16 @@
+.mat-menu-panel {
+
+  font-family: $font-family-sans-serif;
+
+  .mat-menu-item {
+    font-family: $font-family-sans-serif;
+  }
+
+  // Adjust min and max width
+  min-width: 220px;
+  max-width: 405px;
+
+  // Adjust border radius
+  border-radius: $border-radius-sm;
+
+}

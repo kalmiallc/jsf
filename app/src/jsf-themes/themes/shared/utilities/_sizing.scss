@@ -1,0 +1,13 @@
+// Width and height
+@each $prop, $abbrev in (width: w, height: h, min-width: min-w, min-height: min-h, max-width: max-w, max-height: max-h) {
+  @each $size, $length in $sizes {
+    .#{$abbrev}-#{$size} { #{$prop}: $length !important; }
+  }
+}
+
+.w-screen     { width: 100vw !important; }
+.min-w-screen { min-width: 100vw !important; }
+.max-w-screen { max-width: 100vw !important; }
+.h-screen     { height: 100vh !important; }
+.min-h-screen { min-height: 100vh !important; }
+.max-h-screen { max-height: 100vh !important; }

@@ -1,0 +1,115 @@
+//
+// Various Material form field fixes for desktop & mobile
+//
+.mat-form-field {
+  width:       100%;
+  font-family: $font-family-sans-serif;
+
+  // Adjust infix
+  .mat-form-field-infix {
+    // http://iamvdo.me/en/blog/css-font-metrics-line-height-and-vertical-align
+    line-height: 1em;
+
+    // Display as flex
+    display:     flex;
+    align-items: center;
+
+    // Remove all padding and top border
+    padding:       0;
+    border-top:    none;
+
+    // Default height to 3.5em
+    height: 3.5em;
+  }
+
+  // Adjust flex
+  .mat-form-field-flex {
+    display: inline-flex;
+    align-items: center;
+
+    margin-top: 0;
+  }
+
+  // Disabled state
+  &.mat-form-field-disabled {
+    cursor: not-allowed;
+    * {
+      pointer-events: none;
+    }
+  }
+
+  // Title label
+  .mat-form-field-label-wrapper {
+    overflow: visible;
+    display: flex;
+    align-items: center;
+
+    // Remove padding
+    top: 0;
+    padding-top: 0;
+
+    transition: transform $swift-ease-out-duration $swift-ease-out-timing-function;
+    transform: translateY(0);
+
+
+    .mat-form-field-label {
+      position: relative;
+      top: 0;
+      left: 0;
+      margin-top: 0;
+      overflow: hidden;
+
+      // Add some extra padding on the top and bottom so the label text doesn't get cut off
+      padding-bottom: 3px;
+      padding-top: 3px;
+    }
+  }
+
+  // Floating styles
+  &.mat-form-field-can-float {
+    // Transform label wrapper
+    // We do this for compatibility reasons, since IE has issues with using calc() inside transforms
+    // For this reason the whole label wrapper is moved, and the child label is offset a bit to make it line up correctly
+    &.mat-form-field-should-float .mat-form-field-label-wrapper {
+      transform: translateY(-50%);
+    }
+
+    // Transform label
+    &.mat-form-field-should-float .mat-form-field-label,
+    .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+      transform: translateY(.25em) scale(.75);
+    }
+  }
+
+  // Prefix & suffix
+  .mat-form-field-prefix, .mat-form-field-suffix {
+    // z-index: 10;
+    top:     0;
+
+    mat-icon {
+      width:       1em;
+      height:      1em;
+      font-size:   1em;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  // Move subscript closer to the input
+  .mat-form-field-subscript-wrapper {
+    top:        calc(100% - 1.2em);
+    margin-top: 0.325em;
+  }
+
+  // Reduce margin between form fields
+  .mat-form-field-wrapper {
+    padding-bottom: .75em;
+    margin:         .1em 0 .25em 0;
+  }
+
+  // Outline
+  &.mat-form-field-appearance-outline {
+    .mat-form-field-outline {
+      top: 0;
+    }
+  }
+}

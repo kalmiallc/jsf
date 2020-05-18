@@ -1,0 +1,10 @@
+@import '~@angular/material/theming';
+@import 'variables';
+
+// Import core material styles
+@include mat-core();
+
+// Import shared theme styles
+$import-standalone: true;
+
+@import '../jsf-themes/themes/shared/imports-theme';

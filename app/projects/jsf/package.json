@@ -1,0 +1,32 @@
+{
+  "name": "@kalmia/jsf-app",
+  "version": "3.3.15",
+  "author": "Kalmia LTD",
+  "license": "GPL-3.0-only",
+  "scripts": {
+    "test": "ng test jsf",
+    "build": "ng build jsf",
+    "build:watch": "ng build jsf --watch",
+    "lint": "ng lint"
+  },
+  "peerDependencies": {
+    "@angular/cdk": "^7.3.3",
+    "@angular/common": "^7.2.7",
+    "@angular/core": "^7.2.7",
+    "@angular/material": "^7.3.3",
+    "@angular/material-moment-adapter": "^7.3.7",
+    "@kalmia/jsf-common-es2015": "^2.0.0",
+    "angular-split": "^3.0.2",
+    "angular-tree-component": "^8.5.2",
+    "angulartics2": "^7.3.0",
+    "big.js": "^5.2.2",
+    "bowser": "^1.9.4",
+    "color": "^3.1.2",
+    "angular-gridster2": "7.2.0",
+    "overlayscrollbars": "^1.12.0",
+    "overlayscrollbars-ngx": "^0.2.2"
+  },
+  "publishConfig": {
+    "registry": "https://npm.kalmia.si"
+  }
+}

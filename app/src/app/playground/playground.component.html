@@ -1,0 +1,129 @@
+<div class="row">
+  <div *ngIf="!fullscreen" [ngClass]="{ 'col-12 col-md-6': !fullscreen }">
+    <mat-card class="code-editor">
+      <mat-card-title class="schema-card">
+        <div class="title">
+          Schema
+          <ng-container *ngIf="exampleName">- {{ exampleName }}</ng-container>
+        </div>
+        <div class="examples-wrapper">
+          <mat-menu #appMenu="matMenu">
+            <button mat-menu-item *ngFor="let x of exampleSchemas" (click)="setExampleSchema(x.schema)">{{
+              x.label }}
+            </button>
+          </mat-menu>
+
+          <button mat-button [matMenuTriggerFor]="appMenu">
+            Examples
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+      </mat-card-title>
+
+      <mat-card-content>
+        <ngx-monaco-editor [options]="editorOptions"
+                           [(ngModel)]="editorContent"></ngx-monaco-editor>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div [ngClass]="{ 'col-12 col-md-6': !fullscreen, 'col-12': fullscreen }">
+    <mat-card>
+      <mat-card-title>Form</mat-card-title>
+
+      <mat-card-subtitle class="errorMessage" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </mat-card-subtitle>
+
+      <mat-card-content>
+
+        <mat-checkbox [(ngModel)]="fullscreen">Hide code editor</mat-checkbox>
+        &nbsp;&nbsp;&nbsp;
+        <mat-checkbox [(ngModel)]="showFilter">Filter</mat-checkbox>
+        &nbsp;&nbsp;&nbsp;
+        <mat-checkbox [(ngModel)]="debug">Debug</mat-checkbox>
+        &nbsp;&nbsp;&nbsp;
+
+        <button (click)="transpileEvals()">Transpile evals</button>
+
+        <br><br>
+        <div *ngIf="showFilter">
+          Filter:
+          <jsf-kal-jsf-filter (queryChange)="filterQuery = $event"
+                              (sortChange)="sortQuery = $event"
+                              [doc]="doc"
+                              [modes]="modes"
+                              *ngIf="doc">
+            searchbar here
+          </jsf-kal-jsf-filter>
+
+          Filter output: {{ filterQuery | json }}
+          Sort output: {{ sortQuery | json }}
+        </div>
+
+
+        <div style="padding:10px;" [ngStyle]="!!errorMessage && {'opacity':'0.2'}">
+          <jsf-kal-jsf-doc style="padding:10px;"
+                           [doc]="doc"
+                           [debug]="debug"
+                           [enableThemeRender]="true"
+                           [onCustomEvent]="runCustomEvent"
+                           [onVirtualEvent]="runVirtualEvent"
+                           [onNotification]="handleNotification"
+                           [innerScroll]="false"
+                           [modes]="modes"
+                           [onError]="jsfError"
+                           [onFormBuilderCreated]="jsfBuilder"
+                           *ngIf="doc"
+                           #document>
+          </jsf-kal-jsf-doc>
+        </div>
+
+        <br><br>
+
+        <mat-divider></mat-divider>
+
+        <br>
+        <span>Form Value</span>
+        <div class="form-value-container">
+          <pre>{{ formValue | json }}</pre>
+        </div>
+
+        <span>Status tree</span>
+        <div class="form-value-container">
+          <pre *ngIf="formBuilder">{{ formBuilder.propBuilder.statusTree() | json}}</pre>
+        </div>
+
+        <span>Resolver internal dependencies list for ENABLED</span>
+        <div class="form-value-container">
+          <pre *ngIf="formBuilder">{{ formBuilder.resolver.dependenciesListForEnabledIf | json}}</pre>
+        </div>
+
+        <span>Resolver internal dependencies list for VALIDATE</span>
+        <div class="form-value-container">
+          <pre *ngIf="formBuilder">{{ formBuilder.resolver.dependenciesListForValidate | json}}</pre>
+        </div>
+
+        <br>
+
+        <mat-divider></mat-divider>
+
+        <br>
+        <button mat-button color="accent" (click)="setLock()">Lock</button>
+        <button mat-button color="accent" (click)="getDiff()">Get difference</button>
+        <button mat-button color="accent" (click)="getTranslatableStrings()">Get translations</button>
+
+        <div *ngIf="translatableStrings" class="form-translations-container" style="overflow: auto">
+          <pre>{{ translatableStrings }}</pre>
+        </div>
+
+        <div *ngIf="formDiff" class="form-diff-container">
+          <pre>{{ formDiff | json }}</pre>
+        </div>
+
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

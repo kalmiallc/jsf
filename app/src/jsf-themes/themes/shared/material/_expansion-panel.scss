@@ -1,0 +1,17 @@
+.mat-expansion-panel {
+  width: 100%;
+  box-sizing: border-box;
+
+  font-family: $font-family-sans-serif;
+
+  // Force panel header title into block mode instead of flex to force 100% width
+  .mat-expansion-panel-header-title {
+    display: block;
+  }
+
+  .mat-expansion-panel-header,
+  .mat-expansion-panel-content {
+    font-family: $font-family-sans-serif;
+  }
+
+}

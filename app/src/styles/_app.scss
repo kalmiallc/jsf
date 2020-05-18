@@ -1,0 +1,13 @@
+// Import variables
+@import 'variables';
+
+// Import theme styles
+@import 'theme';
+
+
+/*
+ * Global app styles
+ */
+html, body, app-root {
+  height: 100%;
+}

@@ -1,0 +1,17 @@
+# IDE
+/.idea
+/.awcache
+/.vscode
+
+# misc
+lerna-debug.log
+npm-debug.log
+yarn-error.log
+
+# dependencies
+/node_modules
+package-lock.json
+
+# OS metadata
+.DS_Store
+Thumbs.db
