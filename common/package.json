@@ -38,7 +38,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "object-hash": "^2.0.3",
-    "validator": "^10.9.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@types/jest": "^22.2.2",
