@@ -30,7 +30,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "object-hash": "^2.0.3",
-    "validator": "^10.9.0",
+    "validator": "^13.7.0",
     "@angular/animations": "^7.2.7",
     "@angular/cdk": "^7.3.3",
     "@angular/common": "^7.2.7",
