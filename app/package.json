@@ -28,7 +28,7 @@
     "bson": "^4.0.1",
     "bson-objectid": "^1.2.4",
     "lodash": "^4.17.11",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "object-hash": "^2.0.3",
     "validator": "^10.9.0",
     "@angular/animations": "^7.2.7",
