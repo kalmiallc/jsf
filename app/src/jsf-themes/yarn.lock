@@ -1674,11 +1674,9 @@ json-schema-traverse@^0.4.1:
   integrity sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==
 
 json5@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/json5/-/json5-2.1.0.tgz#e7a0c62c48285c628d20a10b85c89bb807c32850"
-  integrity sha512-8Mh9h6xViijj36g7Dxi+Y4S6hNGV96vcJZr/SrlHh1LR/pEn/8j/+qIBbs44YKl69Lrfctp4QD+AdWLTMqEZAQ==
-  dependencies:
-    minimist "^1.2.0"
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
+  integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
@@ -2390,14 +2388,6 @@ postcss-selector-parser@^5.0.0:
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
-postcss-sorting@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/postcss-sorting/-/postcss-sorting-4.0.1.tgz#4bb4eb40e07e2b74e49f6f97fd4317fa73bd65a8"
-  integrity sha512-YNRq7ChWFsLsns78zutLBWp6kvfZr/3YYf9q54P/fBpIHhf8gwbKvr5XHAt2l69SS08lfGtB8gG8m/62gsuTgw==
-  dependencies:
-    lodash "^4.17.4"
-    postcss "^7.0.0"
-
 postcss-syntax@^0.36.2:
   version "0.36.2"
   resolved "https://registry.npmjs.org/postcss-syntax/-/postcss-syntax-0.36.2.tgz#f08578c7d95834574e5593a82dfbfa8afae3b51c"
@@ -2911,24 +2901,7 @@ stylelint-config-recommended@^2.0.0:
   resolved "https://registry.npmjs.org/stylelint-config-recommended/-/stylelint-config-recommended-2.1.0.tgz#f526d5c771c6811186d9eaedbed02195fee30858"
   integrity sha512-ajMbivOD7JxdsnlS5945KYhvt7L/HwN6YeYF2BH6kE4UCLJR0YvXMf+2j7nQpJyYLZx9uZzU5G1ZOSBiWAc6yA==
 
-stylelint-config-sass-guidelines@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.npmjs.org/stylelint-config-sass-guidelines/-/stylelint-config-sass-guidelines-5.3.0.tgz#145e8c10703c517e0961ef55b883091001104783"
-  integrity sha512-qZbYC7zDGkoPpY1WeEf4HXqHvOyV3Sv5SD51+8EEU+8CNAHSaqWOmB51GlGivSFtPCLGxPuUBjnIwojXskPAFA==
-  dependencies:
-    stylelint-order ">=1.0.0"
-    stylelint-scss "^3.4.0"
-
-stylelint-order@>=1.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/stylelint-order/-/stylelint-order-2.0.0.tgz#f19400e1d42a844bfd149fae1daa02e671a9b2f2"
-  integrity sha512-rGmvP5zSCxvmBYP8DgzmdMhMMM+degsQCXrzYDmqPmeyU2bWmQTt2mH157Svj0WwHQn1LG9aQHdvKZfpfg2t4A==
-  dependencies:
-    lodash "^4.17.10"
-    postcss "^7.0.2"
-    postcss-sorting "^4.0.1"
-
-stylelint-scss@^3.4.0, stylelint-scss@^3.5.1:
+stylelint-scss@^3.5.1:
   version "3.5.1"
   resolved "https://registry.npmjs.org/stylelint-scss/-/stylelint-scss-3.5.1.tgz#3759dbae8da4b03d8a9f60f5b8c098f23961db43"
   integrity sha512-XNWKTU1a2EUNWdauxHPTJlGNNQzIbg48OTTIdBs5xTXxpbYAGtX/J+jBqMPjxfdySXijc/mexubuZ+ZinUGGgw==
